@@ -12,7 +12,33 @@
 		<!-- // navbar -->
 
 		<!-- banner -->
-		<?php include(ROOT_PATH . '/includes/banner.php') ?>
+		<?php
+			if (isset($_POST['username']) && isset($_POST['password']))  {
+				$username = strip_tags($_POST['username']);
+				$password = strip_tags($_POST['password']);
+
+				$req = $con->query("SELECT password FROM clients where clientname='$username'");
+				$row = $req->fetch();
+
+				if($password === $row['password']) {
+					echo 'Welcome'.$username;
+					$_SESSION['user'] = $username;
+					include(ROOT_PATH . '/includes/banner_user.php');
+				}
+				else {
+					echo 'Authentification error!!';
+					include(ROOT_PATH . '/includes/banner.php');
+				}
+			}
+			else {
+				if (isset($_SESSION['user'])) {
+					include(ROOT_PATH . '/includes/banner_user.php');
+				}
+				else {
+					include(ROOT_PATH . '/includes/banner.php');
+				}	
+			} 
+		?>
 		<!-- // banner -->
 
 		<!-- Page content -->
@@ -20,7 +46,11 @@
 			<h2 class="content-title">Recent Orders</h2>
 			<hr>
 			<!-- more content still to come here ... -->
-			<?php include(ROOT_PATH . '/includes/navbar-orders.php') ?>
+			<?php 
+				if (isset($_SESSION['user'])) {
+					include(ROOT_PATH . '/includes/navbar-orders.php');
+				} 
+			?>
 			<?php require_once('routes/router.php'); ?>
 			
 		</div>

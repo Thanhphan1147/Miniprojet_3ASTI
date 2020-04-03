@@ -7,16 +7,17 @@
 </head>
 
 <body>
-    <h1> web site </h1>
+    	<!-- container - wraps whole page -->
+	<div class="container">
+        <h1> web site </h1>
 
-    <div>
-        <ul>
-            <li><a href="/index.php?controller=orders&action=index">show all orders</a></li>
-            <li><a href="/index.php">Main Page</a></li>
-            
-        </ul>
-    </div>
-    <?php require_once('routes/router.php'); ?>
+        <div>
+            <ul>
+                <li><a href="../index.php?controller=orders&action=index">show all orders</a></li>
+                <li><a href="../index.php">Main Page</a></li>
+                
+            </ul>
+        </div>
   
 </body>
 
