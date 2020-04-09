@@ -13,16 +13,16 @@
 
 		<!-- banner -->
 		<?php
-			if (isset($_POST['username']) && isset($_POST['password']))  {
-				$username = strip_tags($_POST['username']);
+			if (isset($_POST['email']) && isset($_POST['password']))  {
+				$email = strip_tags($_POST['email']);
 				$password = strip_tags($_POST['password']);
 
-				$req = $con->query("SELECT password FROM clients where clientname='$username'");
+				$req = $con->query("SELECT lastname, firstname, password FROM customers where email='$email'");
 				$row = $req->fetch();
-
+				$user = $row['lastname']." ".$row['firstname'];
 				if($password === $row['password']) {
-					echo 'Welcome'.$username;
-					$_SESSION['user'] = $username;
+					echo 'Welcome '.$row['lastname']." ".$row['firstname'];
+					$_SESSION['user'] = $user;
 					include(ROOT_PATH . '/includes/banner_user.php');
 				}
 				else {
