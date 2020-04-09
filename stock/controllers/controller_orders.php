@@ -19,5 +19,9 @@
       require_once('views/orders/show.php');
 
    }
+
+   public function new() {
+      $order = new Order();
+   }
  }
 ?>

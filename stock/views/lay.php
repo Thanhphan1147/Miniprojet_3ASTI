@@ -12,7 +12,33 @@
 		<!-- // navbar -->
 
 		<!-- banner -->
-		<?php include(ROOT_PATH . '/includes/banner.php') ?>
+		<?php
+			if (isset($_POST['email']) && isset($_POST['password']))  {
+				$email = strip_tags($_POST['email']);
+				$password = strip_tags($_POST['password']);
+
+				$req = $con->query("SELECT lastname, firstname, password FROM customers where email='$email'");
+				$row = $req->fetch();
+				$user = $row['lastname']." ".$row['firstname'];
+				if($password === $row['password']) {
+					echo 'Welcome '.$row['lastname']." ".$row['firstname'];
+					$_SESSION['user'] = $user;
+					include(ROOT_PATH . '/includes/banner_user.php');
+				}
+				else {
+					echo 'Authentification error!!';
+					include(ROOT_PATH . '/includes/banner.php');
+				}
+			}
+			else {
+				if (isset($_SESSION['user'])) {
+					include(ROOT_PATH . '/includes/banner_user.php');
+				}
+				else {
+					include(ROOT_PATH . '/includes/banner.php');
+				}	
+			} 
+		?>
 		<!-- // banner -->
 
 		<!-- Page content -->
@@ -20,7 +46,11 @@
 			<h2 class="content-title">Recent Orders</h2>
 			<hr>
 			<!-- more content still to come here ... -->
-			<?php include(ROOT_PATH . '/includes/navbar-orders.php') ?>
+			<?php 
+				if (isset($_SESSION['user'])) {
+					include(ROOT_PATH . '/includes/navbar-orders.php');
+				} 
+			?>
 			<?php require_once('routes/router.php'); ?>
 			
 		</div>

@@ -154,6 +154,18 @@ body {
 	width: 50%;
 	float: left;
 }
+
+.banner .user_div {
+	width: 50%;
+	float: left;
+}
+
+.banner .user_div h1 {
+    color: white;
+	margin-bottom: 20px;
+    font-family: 'Noto Serif', serif;
+}
+
 .banner .login_div form {
 	margin-top: 40px;
 }
