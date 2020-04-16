@@ -43,15 +43,21 @@
 
 		<!-- Page content -->
 		<div class="content">
-			<h2 class="content-title">Recent Orders</h2>
 			<hr>
 			<!-- more content still to come here ... -->
 			<?php 
 				if (isset($_SESSION['user'])) {
+					echo '<h2 class="content-title">Recent Orders</h2>';
 					include(ROOT_PATH . '/includes/navbar-orders.php');
+					require_once('routes/router.php');
+				}
+				else {
+					echo '<h2 class="content-title">Nos Produits</h2>';
+					$controller = 'products';
+					$action = 'index';
+					require_once('routes/router.php');
 				} 
 			?>
-			<?php require_once('routes/router.php'); ?>
 			
 		</div>
 		<!-- // Page content -->

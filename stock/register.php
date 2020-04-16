@@ -19,25 +19,27 @@
                 $first = $_POST['firstname'];
                 $password = $_POST['password'];
                 $email = $_POST['email'];
-                $address = "unknown";
-                $city = "unknown";
-                $country = "unknown";
-                if ($password === $_POST['password_confirmation']) {
-                    $req = $con->query("SELECT * FROM customers where email='$email'");
-                    $count = $req->rowCount();
-                    if ($count === 0) {
-                        // Adding new entry into database
-                        $sql = "INSERT INTO customers (lastname, firstname, email, password, address, city, country) VALUES (?,?,?,?,?,?,?)";
-                        $stmt= $con->prepare($sql);
-                        $stmt->execute([$last, $first, $email, $password, $address, $city, $country]);
-                        header("Location: index.php?Register");
+                if ($email != '' && $password != '') { 
+                    $address = "unknown";
+                    $city = "unknown";
+                    $country = "unknown";
+                    if ($password === $_POST['password_confirmation']) {
+                        $req = $con->query("SELECT * FROM customers where email='$email'");
+                        $count = $req->rowCount();
+                        if ($count === 0) {
+                            // Adding new entry into database
+                            $sql = "INSERT INTO customers (lastname, firstname, email, password, address, city, country) VALUES (?,?,?,?,?,?,?)";
+                            $stmt= $con->prepare($sql);
+                            $stmt->execute([$last, $first, $email, $password, $address, $city, $country]);
+                            header("Location: index.php?Register");
+                        }
+                        else {
+                            echo 'email already in use';
+                        }
                     }
                     else {
-                        echo 'email already in use';
+                        echo 'Password does not match';
                     }
-                }
-                else {
-                    echo 'Password does not match';
                 }
             } 
 		?>
