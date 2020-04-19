@@ -260,27 +260,26 @@ body {
 }
 /* Custom styling */
 
-.cat {
+.table-customer {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: medium;
+}
+
+.table-customer td, .table-customer th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-customer tr:nth-child(even){background-color: #f2f2f2;}
+
+.table-customer tr:hover {background-color: #ddd;}
+
+.table-customer th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: lightskyblue;
     color: white;
-    background: #4E6166;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    display: block;
-    letter-spacing: .1em;
-    text-decoration: none;
-}
-
-.content .detail {
-    margin-left: 0px;
-    border: 3px solid blue;
-    border-radius: 5px;  
-    text-align: center;
-    letter-spacing: .1em;
-    text-decoration: none;       
-}
-
-img {
-    max-width:100%;
-    max-height:100%;
 }

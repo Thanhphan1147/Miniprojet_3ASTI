@@ -13,9 +13,9 @@
 
     public function show() {
 
-      if (!isset($_GET['id'])) return routing('pages', 'error');      
+      if (!isset($_GET['orderid'])) return routing('pages', 'error');      
       $order= new Order();
-      $myorder=$order->find($_GET['id']);
+      $myorder=$order->find($_GET['orderid']);
       require_once('views/orders/show.php');
 
    }

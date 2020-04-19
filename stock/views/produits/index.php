@@ -14,7 +14,7 @@
             <?php
                 // echo '<img src =/stock/img/'.$prod->img.'>';
                 echo '
-                <div class="container" style="width: 300px;height: 300px;background-image: url(/stock/img/'. $prod->img .');background-size: 300px 300px;">
+                <div class="order-info" style="width: 300px;height: 300px;background-image: url(/stock/img/'. $prod->img .');background-size: 300px 300px;">
                     <div style="border-style: solid; border-width: 3px; border-color: black; background-color: white">
                         <a href = "/stock/index.php?controller=products&action=show&catid='. $prod->catid .'">
                         <h3>'.$prod->catname. '</h3>   

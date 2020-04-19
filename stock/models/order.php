@@ -2,29 +2,44 @@
 
 class Order
 {
-    public $id;
-    public $client_id;
-    public $description;
-    public $order_total;
-    public $order_date;
+    public $orderid;
+    public $customerid;
+    public $amount;
+    public $date;
     public $order_status;
+    public $ship_name;
+    public $ship_address;
+    public $ship_city;
+    public $ship_state;
+    public $ship_zip;
+    public $ship_country;
 
     public function __construct(
-        $id = false,
-        $client_id = false,
-        $order_total = false,
-        $description = false,
+        $orderid = false,
+        $customerid = false,
+        $amount = false,
+        $date = false,
         $order_status = false,
-        $order_date = false
+        $ship_name = false,
+        $ship_address = false,
+        $ship_city = false,
+        $ship_state = false,
+        $ship_zip = false,
+        $ship_country = false
     ) {
-        if ($id === false) return;
+        if ($orderid === false) return;
 
-        $this->id = $id;
-        $this->client_id = $client_id;
-        $this->description = $description;
-        $this->order_total = $order_total;
-        $this->order_date = $order_date;
+        $this->orderid = $orderid;
+        $this->customerid = $customerid;
+        $this->amount = $amount;
+        $this->date = $date;
         $this->order_status = $order_status;
+        $this->ship_name = $ship_name;
+        $this->ship_address = $ship_address;
+        $this->ship_city = $ship_city;
+        $this->ship_state = $ship_state;
+        $this->ship_zip = $ship_zip;
+        $this->ship_country = $ship_country;
     } //end construct
 
     public function get_all_orders()
@@ -35,23 +50,30 @@ class Order
         $orders = $con->query('SELECT * FROM orders');
 
         foreach ($orders as $order)
-            $list[] = new Order($order['id'], $order['client_id'], NULL, $order['ord_description'], NULL, NULL);
+            $list[] = new Order($order['orderid'], $order['customerid'], $order['amount'], $order['date'], $order['order_status']);
         return $list;
     }
-    public function find($id)
+    public function find($orderid)
     {
         global $con;
-        $id = intval($id);
-        $req = $con->prepare('SELECT * FROM orders where id=:id');
-        $req->execute(array('id' => $id));
+        // $orderid = intval($orderid);
+        // $req = $con->prepare("SELECT * FROM orders where orderid = ':orderid'");
+        // $req->execute(array(':orderid' => $orderid));
+        $req = $con->query("SELECT * FROM orders where orderid = '$orderid'");
         $order = $req->fetch();
+        // echo $order['ship_name'];
         return new Order(
-            $order['id'],
-            $order['client_id'],
-            $order['ord_total'],
-            $order['ord_description'],
-            $order['ord_status'],
-            $order['order_date']
+            $order['orderid'],
+            $order['customerid'],
+            $order['amount'],
+            $order['date'],
+            $order['order_status'],
+            $order['ship_name'],
+            $order['ship_address'],
+            $order['ship_city'],
+            $order['ship_state'],
+            $order['ship_zip'],
+            $order['ship_country']
         );
     }
 }//end class Order
