@@ -52,9 +52,12 @@
 					require_once('routes/router.php');
 				}
 				else {
-					echo '<h2 class="content-title">Nos Produits</h2>';
-					$controller = 'products';
-					$action = 'index';
+					if (!isset($_GET['catid']) && !isset($_GET['prodid']))
+					{
+						$controller = 'products';
+						$action = 'index';
+					}
+					
 					require_once('routes/router.php');
 				} 
 			?>

@@ -4,6 +4,7 @@ class Product
 {
     public $prodid;
     public $catid;
+    public $catname;
     public $name;
     public $price;
     public $description;
@@ -12,15 +13,17 @@ class Product
     public function __construct(
         $prodid = false,
         $catid = false,
+        $catname = false,
         $name = false,
         $price = false,
         $description = false,
         $img = false
     ) {
-        if ($id === false) return;
+        if ($prodid === false) return;
 
-        $this->prodid = $id;
+        $this->prodid = $prodid;
         $this->catid = $catid;
+        $this->catname = $catname;
         $this->name = $name;
         $this->price = $price;
         $this->description = $description;
@@ -32,10 +35,33 @@ class Product
         global $con;
         $list = array();
         //$con = DBConnect::getInstance(); //static method
-        $prod = $con->query('SELECT * FROM products');
+        $prod = $con->query('SELECT * FROM products NATURAL JOIN categories');
 
         foreach ($prod as $prod)
-            $list[] = new Product($prod['prodid'], $prod['catid'], $prod['name'], $prod['price'], $prod['description'], $prod['img']);
+            $list[] = new Product($prod['prodid'], $prod['catid'], $prod['catname'] , $prod['name'], $prod['price'], $prod['description'], $prod['img']);
         return $list;
     }
+
+    public function get_products_categorie($catid)
+    {
+        global $con;
+        $list = array();
+        $prod = $con->query("SELECT * FROM products NATURAL JOIN categories where catid = '$catid'");
+
+        foreach ($prod as $prod)
+        $list[] = new Product($prod['prodid'], $prod['catid'], $prod['catname'] , $prod['name'], $prod['price'], $prod['description'], $prod['img']);
+        return $list;
+    }
+
+    public function get_product_detail($prodid)
+    {
+        global $con;
+        $prod = $con->query("SELECT * FROM products where prodid = '$prodid'");
+
+        foreach ($prod as $prod)
+            // echo $prod['description'];
+            $list[] = new Product($prod['prodid'], $prod['catid'], false , $prod['name'], $prod['price'], $prod['description'], $prod['img']);
+        return $list;
+    }
+
 }//end class Products

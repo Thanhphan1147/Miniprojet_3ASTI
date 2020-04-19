@@ -23,7 +23,7 @@ function routing($controller, $action)
 $controllers = array(
     'pages' => ['home', 'error'],
     'orders' => ['index', 'show'],
-    'products' => ['index']
+    'products' => ['index', 'show', 'detail']
 );
 
 // var_dump($controllers);
